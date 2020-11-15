@@ -4,11 +4,7 @@ const app = express()
 
 const db = require('../models')
 
-
-
-
-
-/*
+// GET all workouts from database
 app.get("/api/workouts", (req, res) => {
     db.Workout.find({}, (err, data) => {
         if (err) {
@@ -18,7 +14,7 @@ app.get("/api/workouts", (req, res) => {
         }
     })
 })
-*/
+
 
 // Export app
 module.exports = (app)
