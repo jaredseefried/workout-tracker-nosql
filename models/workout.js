@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Workout Schema
 const WorkoutSchema = new Schema({
     day: {
         type: Date,
@@ -36,14 +37,17 @@ const WorkoutSchema = new Schema({
         }
     ]
 }, {
+    // When sending JSON, allow virtuals 
     toJSON: { virtuals: true }
 });
 
+// Calculate the 'Total Workout Duration:' 
 WorkoutSchema.virtual('totalDuration').get(function () {
     return this.exercises.reduce((acc, curVal) => acc + curVal.duration, 0)
 });
 
-
+// Give the model a variable
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
+// Export model
 module.exports = Workout;
