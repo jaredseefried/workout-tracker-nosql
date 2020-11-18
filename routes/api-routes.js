@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 
+// Require models folder
 const db = require('../models')
 
 // GET all workouts from database
@@ -17,7 +18,7 @@ app.get("/api/workouts", (req, res) => {
 
 // POST to create new workout object
 app.post("/api/workouts", (req, res) => {
-    db.Workout.create({}, (err, data) =>{
+    db.Workout.create({}, (err, data) => {
         if (err) {
             console.log(err)
         } else {
@@ -27,11 +28,11 @@ app.post("/api/workouts", (req, res) => {
 })
 
 // PUT to update _id
-app.put("/api/workouts/:id", (req, res) =>{
+app.put("/api/workouts/:id", (req, res) => {
     db.Workout.findOneAndUpdate(
-        {_id: req.params.id},
-        { $push: { exercises: req.body}},
-        { new: true}, (err, data) =>{
+        { _id: req.params.id },
+        { $push: { exercises: req.body } },
+        { new: true }, (err, data) => {
             if (err) {
                 console.log(err)
             } else {
@@ -41,7 +42,7 @@ app.put("/api/workouts/:id", (req, res) =>{
 })
 
 //GET for the stats page
-app.get("/api/workouts/range", (req, res) =>{
+app.get("/api/workouts/range", (req, res) => {
     db.Workout.find({}, (err, data) => {
         if (err) {
             console.log(err)
@@ -49,7 +50,7 @@ app.get("/api/workouts/range", (req, res) =>{
             res.json(data)
         }
     })
-    .limit(7)
+        .limit(7)
 })
 
 // Export app
