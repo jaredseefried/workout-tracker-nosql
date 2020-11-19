@@ -7,50 +7,52 @@ const db = require('../models')
 
 // GET all workouts from database
 app.get("/api/workouts", (req, res) => {
-    db.Workout.find({}, (err, data) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json(data)
-        }
-    })
+    db.Workout.find({})
+        .then(results => {
+            res.json(results)
+        })
+        .catch(err => {
+            res.send(err)
+        })
+
 })
 
 // POST to create new workout object
 app.post("/api/workouts", (req, res) => {
-    db.Workout.create({}, (err, data) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json(data)
-        }
+    db.Workout.create({})
+    .then(results => {
+        res.json(results)
     })
+    .catch(err => {
+        res.send(err)
+    })
+    
 })
 
-// PUT to update _id
+// PUT to update exercise _id
 app.put("/api/workouts/:id", (req, res) => {
     db.Workout.findOneAndUpdate(
         { _id: req.params.id },
         { $push: { exercises: req.body } },
-        { new: true }, (err, data) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.json(data)
-            }
+        { new: true })
+        .then(results => {
+            res.json(results)
+        })
+        .catch(err => {
+            res.send(err)
         })
 })
 
 //GET for the stats page
 app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({}, (err, data) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.json(data)
-        }
-    })
-        .limit(7)
+    db.Workout.find({})
+        .then(results => {
+            res.json(results)
+        })
+        .catch(err => {
+            res.send(err)
+        })
+        .limit(7) // limit to 7 entries
 })
 
 // Export app
